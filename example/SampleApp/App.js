@@ -77,19 +77,43 @@ const App: () => Node = () => {
             title={'Pay with Razorpay'}
             onPress={() => {
               var options = {
-                description: 'Credits towards consultation',
-                image: 'https://i.imgur.com/3g7nmJC.png',
-                currency: 'INR',
-                key: 'rzp_test_1DP5mmOlF5G5ag', // Your api key
-                amount: '5000',
-                name: 'foo',
-                prefill: {
-                  email: 'void@razorpay.com',
-                  contact: '9191919191',
-                  name: 'Razorpay Software',
+                "order_id": "order_OUWYU0HsXRlBUP",
+                "currency": "INR",
+                "key":"rzp_test_QTKTXv39GiucD5",
+                "ep":"https://api-web-appma.ext.dev.razorpay.in/test/checkout.html",
+                "name": "prashant",
+                "one_click_checkout": true,
+                "customer_cart": {
+                    "currency": "INR",
+                    "value": "300.0",
+                    "content_type": "product",
+                    "contents": [
+                        {
+                            "id": 8089863487764,
+                            "variant_id": 44358994428180,
+                            "name": "Digital Testing Product",
+                            "value": "100.0",
+                            "quantity": 2
+                        },
+                        {
+                            "id": 8009200566548,
+                            "variant_id": 45182720311572,
+                            "name": "Shirt",
+                            "value": "100.0",
+                            "quantity": 1
+                        },
+                        {
+                            "id": 8009200566548,
+                            "variant_id": 45182720311572,
+                            "name": "Shirt",
+                            "value": "100.0",
+                            "quantity": 1
+                        }
+                    ]
                 },
-                theme: {color: '#F37254'},
-              };
+                "script_coupon_applied": true
+              
+                };
               RazorpayCheckout.open(options)
                 .then(data => {
                   // handle success
