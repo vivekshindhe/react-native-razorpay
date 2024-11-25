@@ -8,6 +8,7 @@ const removeSubscriptions = () => {
   razorpayEvents.removeAllListeners('Razorpay::PAYMENT_SUCCESS');
   razorpayEvents.removeAllListeners('Razorpay::PAYMENT_ERROR');
   razorpayEvents.removeAllListeners('Razorpay::EXTERNAL_WALLET_SELECTED');
+  razorpayEvents.removeAllListeners('Razorpay::MAGIC_X_RESPONSE');
 };
 
 class RazorpayCheckout {
@@ -26,6 +27,21 @@ class RazorpayCheckout {
       NativeModules.RNRazorpayCheckout.open(options);
     });
   }
+
+  static openMagicX(storefrontUrl, itemsJsonString, successCallback, errorCallback){
+    return new Promise(function(resolve,reject){
+      razorpayEvents.addListener('Razorpay::MAGIC_X_RESPONSE', (data) => {
+        console.log("inside magicx response");
+        console.log(JSON.stringify(data));
+        let resolveFn = successCallback || resolve;
+        resolveFn(data);
+        removeSubscriptions();
+      });
+      NativeModules.RNRazorpayCheckout.openMagicX(storefrontUrl, itemsJsonString)
+    });
+
+  }
+
   static onExternalWalletSelection(externalWalletCallback) {
     razorpayEvents.addListener('Razorpay::EXTERNAL_WALLET_SELECTED', (data) => {
       externalWalletCallback(data);

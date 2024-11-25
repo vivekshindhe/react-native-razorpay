@@ -16,6 +16,7 @@ import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.razorpay.CheckoutActivity;
+import com.razorpay.MagicXActivity;
 import com.razorpay.PaymentData;
 import com.razorpay.PaymentResultWithDataListener;
 import com.razorpay.ExternalWalletListener;
@@ -66,8 +67,26 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
     } catch (Exception e) {}
   }
 
+  @ReactMethod
+  public void openMagicX(String storefrontUrl, String itemsDataJsonString){
+    Activity currentActivity = getCurrentActivity();
+    Intent intent = new Intent(currentActivity, MagicXActivity.class);
+    intent.putExtra("url", storefrontUrl);
+    intent.putExtra("itemsJsonArray", itemsDataJsonString);
+    currentActivity.startActivityForResult(intent, MagicXActivity.MAGICX_REQUEST_CODE);
+  }
+
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-    onActivityResult(requestCode, resultCode, data);
+    if(requestCode == MagicXActivity.MAGICX_REQUEST_CODE && resultCode == MagicXActivity.MAGICX_RESPONSE_CODE){
+      try{
+        JSONObject magicxResponse = new JSONObject();
+        magicxResponse.put("checkout_url", data.getStringExtra("checkout_url"));
+          sendEvent("Razorpay::MAGIC_X_RESPONSE",Utils.jsonToWritableMap(magicxResponse));
+      }catch (JSONException e){}
+    }else{
+      onActivityResult(requestCode, resultCode, data);
+    }
+    
   }
 
   public void onNewIntent(Intent intent) {}

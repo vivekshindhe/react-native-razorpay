@@ -14,7 +14,7 @@
 typedef RazorpayCheckout Razorpay;
 
 @interface RNRazorpayCheckout () <RazorpayPaymentCompletionProtocolWithData,
-ExternalWalletSelectionProtocol>
+ExternalWalletSelectionProtocol, MagicXResultProtocol>
 
 @end
 
@@ -45,6 +45,15 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
 
         //Use 'open' method with displayController parameter
         [razorpay open:tempOptions displayController:rootViewController];
+    });
+}
+
+RCT_EXPORT_METHOD(openMagicX : (NSString *) storefrontUrl, (NSString *) itemsJsonData){
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        Razorpay *razorpay = [Razorpay initWithKey: keyID
+                               andDelegateWithData:self];
+        [razorpay openMagicX: storefrontUrl: storefrontUrl, itemsData: itemsJsonData, withDelegate:self];
+        
     });
 }
 
@@ -102,6 +111,11 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
                  WithPaymentData:(nullable NSDictionary *)paymentData {
     [RazorpayEventEmitter onExternalWalletSelected:walletName
                                            andData:paymentData];
+}
+
+- (void)onCheckoutUrlGenerated:(nonnull NSString *) checkoutUrl {
+    NSLog(@"onCheckoutUrlGenerated", checkoutUrl)
+    [RazorpayEventEmitter onCheckoutUrlGenerated: checkoutUrl];
 }
 
 @end

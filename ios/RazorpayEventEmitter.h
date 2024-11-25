@@ -19,4 +19,5 @@
                andData:(NSDictionary *)response;
 + (void)onExternalWalletSelected:(NSString *)walletName
                          andData:(NSDictionary *)paymentData;
++ (void)onCheckoutUrlGenerated:(NSString *)checkoutUrl;
 @end
