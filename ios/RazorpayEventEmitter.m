@@ -14,7 +14,7 @@
 NSString *const kPaymentError = @"PAYMENT_ERROR";
 NSString *const kPaymentSuccess = @"PAYMENT_SUCCESS";
 NSString *const kExternalWalletSelected = @"EXTERNAL_WALLET_SELECTED";
-NSString *const kOnCheckoutUrlGenerated = @"CHECKOUT_URL_GENERATED";
+NSString *const kOnCheckoutUrlGenerated = @"MAGIC_X_RESPONSE";
 
 @implementation RazorpayEventEmitter
 
@@ -25,7 +25,7 @@ RCT_EXPORT_MODULE();
      @"Razorpay::PAYMENT_SUCCESS",
      @"Razorpay::PAYMENT_ERROR",
      @"Razorpay::EXTERNAL_WALLET_SELECTED",
-     @"Razorpay::CHECKOUT_URL_GENERATED"
+     @"Razorpay::MAGIC_X_RESPONSE"
     ];
 }
 
@@ -42,6 +42,11 @@ RCT_EXPORT_MODULE();
      addObserver:self
      selector:@selector(externalWalletSelected:)
      name:kExternalWalletSelected
+     object:nil];
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(checkoutUrlGenerated:)
+     name:kOnCheckoutUrlGenerated
      object:nil];
 }
 
@@ -65,7 +70,7 @@ RCT_EXPORT_MODULE();
 }
 
 - (void)checkoutUrlGenerated:(NSNotification *)notification{
-    [self sendEventWithName:@"Razorpay::CHECKOUT_URL_GENERATED"
+    [self sendEventWithName:@"Razorpay::MAGIC_X_RESPONSE"
                        body:notification.userInfo];
 }
 
@@ -104,9 +109,10 @@ RCT_EXPORT_MODULE();
 }
 
 + (void)onCheckoutUrlGenerated:(NSString *)checkoutUrl {
-    NSMutableDictionary *payload = @{
+    NSDictionary *payload = @{
         @"checkout_url" : checkoutUrl
     };
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kOnCheckoutUrlGenerated
                                                         object:nil
                                                       userInfo:payload];    

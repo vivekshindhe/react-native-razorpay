@@ -48,11 +48,12 @@ RCT_EXPORT_METHOD(open : (NSDictionary *)options) {
     });
 }
 
-RCT_EXPORT_METHOD(openMagicX : (NSString *) storefrontUrl, (NSString *) itemsJsonData){
+RCT_EXPORT_METHOD(openMagicX :(NSString *) storefrontUrl
+                                    itemsData:(NSString *) itemsJsonData){
     dispatch_sync(dispatch_get_main_queue(), ^{
-        Razorpay *razorpay = [Razorpay initWithKey: keyID
+        Razorpay *razorpay = [Razorpay initWithKey: @""
                                andDelegateWithData:self];
-        [razorpay openMagicX: storefrontUrl: storefrontUrl, itemsData: itemsJsonData, withDelegate:self];
+        [razorpay openMagicXWithStorefrontUrl: storefrontUrl itemsData:itemsJsonData withDelegate:self];
         
     });
 }
@@ -114,8 +115,7 @@ RCT_EXPORT_METHOD(openMagicX : (NSString *) storefrontUrl, (NSString *) itemsJso
 }
 
 - (void)onCheckoutUrlGenerated:(nonnull NSString *) checkoutUrl {
-    NSLog(@"onCheckoutUrlGenerated", checkoutUrl)
-    [RazorpayEventEmitter onCheckoutUrlGenerated: checkoutUrl];
+    [RazorpayEventEmitter onCheckoutUrlGenerated:checkoutUrl];
 }
 
 @end
