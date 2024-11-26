@@ -105,7 +105,7 @@ RCT_EXPORT_MODULE();
 
 + (void)onCheckoutUrlGenerated:(NSString *)checkoutUrl {
     NSMutableDictionary *payload = @{
-        @"checkout_url" : @(checkoutUrl)
+        @"checkout_url" : checkoutUrl
     };
     [[NSNotificationCenter defaultCenter] postNotificationName:kOnCheckoutUrlGenerated
                                                         object:nil
