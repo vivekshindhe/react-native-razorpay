@@ -77,12 +77,17 @@ public class RazorpayModule extends ReactContextBaseJavaModule implements Activi
   }
 
   public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-    if(requestCode == MagicXActivity.MAGICX_REQUEST_CODE && resultCode == MagicXActivity.MAGICX_RESPONSE_CODE){
-      try{
-        JSONObject magicxResponse = new JSONObject();
-        magicxResponse.put("checkout_url", data.getStringExtra("checkout_url"));
+    if(requestCode == MagicXActivity.MAGICX_REQUEST_CODE ){
+      if(resultCode == MagicXActivity.MAGICX_RESPONSE_CODE){
+        try{
+          JSONObject magicxResponse = new JSONObject();
+          magicxResponse.put("checkout_url", data.getStringExtra("checkout_url"));
           sendEvent("Razorpay::MAGIC_X_RESPONSE",Utils.jsonToWritableMap(magicxResponse));
-      }catch (JSONException e){}
+        }catch (JSONException e){}
+      }else{
+        JSONObject magicxResponse = new JSONObject();
+        sendEvent("Razorpay::MAGIC_X_RESPONSE", Utils.jsonToWritableMap(magicxResponse));
+      }
     }else{
       onActivityResult(requestCode, resultCode, data);
     }
