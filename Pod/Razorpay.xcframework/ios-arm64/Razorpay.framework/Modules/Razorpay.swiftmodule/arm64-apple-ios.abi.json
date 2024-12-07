@@ -3120,7 +3120,7 @@
     {
       "filePath": "\/Users\/vivek.shindhe\/Razorpay\/iOS\/razorpay-ios\/RazorpayIOS\/CheckoutOtpelf\/Classes\/InternalRazorpay.swift",
       "kind": "StringLiteral",
-      "offset": 10625,
+      "offset": 10543,
       "length": 11,
       "value": "\"rURIEvent\""
     },
@@ -3556,7 +3556,7 @@
       "kind": "StringLiteral",
       "offset": 1317,
       "length": 8,
-      "value": "\"1.3.11\""
+      "value": "\"1.3.13\""
     },
     {
       "filePath": "\/Users\/vivek.shindhe\/Razorpay\/iOS\/razorpay-ios\/RazorpayIOS\/Main\/Lumberjack.swift",
