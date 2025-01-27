@@ -20,8 +20,8 @@ android {
 }
 
 dependencies {
-    // implementation fileTree(dir:"libs", includes:["*.aar"])
-    implementation 'com.razorpay:standard-core:1.6.42'
+    implementation fileTree(dir:"libs", includes:["*.aar"])
+    // implementation 'com.razorpay:standard-core:1.6.42'
     implementation 'com.google.android.gms:play-services-auth:20.6.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
     implementation 'com.facebook.react:react-native:+'
