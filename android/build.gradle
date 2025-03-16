@@ -3,7 +3,7 @@ repositories {
     mavenCentral()
     maven {
             name "reposiliteRepository"
-            url "https://da61-136-226-243-8.ngrok-free.app/releases"
+            url "https://fdd1-136-226-243-8.ngrok-free.app/releases"
         }
 
 }
