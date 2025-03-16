@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
 repositories {
     mavenCentral()
-     maven { url "https://trialg7emv4.jfrog.io/artifactory/vivek-libs-release"}
+             maven { url "https://trialg7emv4.jfrog.io/artifactory/new-test-vivek/"}
+
 
 }
 def safeExtGet(prop, fallback) {
