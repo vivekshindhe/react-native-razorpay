@@ -1,10 +1,7 @@
 apply plugin: 'com.android.library'
 repositories {
     mavenCentral()
-    maven {
-            name "reposiliteRepository"
-            url "https://fdd1-136-226-243-8.ngrok-free.app/releases"
-        }
+     maven { url "https://trialg7emv4.jfrog.io/artifactory/vivek-libs-release"}
 
 }
 def safeExtGet(prop, fallback) {
@@ -26,7 +23,8 @@ android {
 dependencies {
     // implementation fileTree(dir:"libs", includes:["*.aar"])
     // implementation 'com.razorpay:standard-core:1.6.42'
-    implementation 'com.razorpay:standard-core:1.6.47'
+//     implementation 'com.vivek:standard-core:1.6.47'
+    implementation 'com.vivek:vivek-test:1.0.0'
     implementation 'com.google.android.gms:play-services-auth:20.6.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:18.0.1'
     implementation 'com.facebook.react:react-native:+'
